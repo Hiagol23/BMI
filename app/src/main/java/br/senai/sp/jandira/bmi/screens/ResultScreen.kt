@@ -61,7 +61,7 @@ fun ResultScreen(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(15.dp)
-                    .height(70.dp),
+                    .height(80.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -211,8 +211,8 @@ fun ResultScreen(){
                         onClick = {},
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
-                            .width(500.dp)
-                            .height(50.dp),
+                            .width(300.dp)
+                            .height(45.dp),
                         shape = RoundedCornerShape(8.dp)
 
                     ) {
