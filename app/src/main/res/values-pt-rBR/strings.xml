@@ -4,4 +4,19 @@
     <string name="welcome">Bem-vindo!</string>
     <string name="your_name">Qual é o seu nome?</string>
     <string name="next">Próximo</string>
+    <string name="hi">Oi</string>
+    <string name="calculate">Calcular</string>
+    <string name="age">Idade</string>
+    <string name="weight">Peso</string>
+    <string name="height">Altura</string>
+    <string name="male">Homem</string>
+    <string name="female">Mulher</string>
+    <string name="result" translatable="false">Seu resultado do IMC</string>
+    <string name="bmi_value">18,03</string>
+    <string name="class_bmi">Você está abaixo do peso.</string>
+    <string name="new_calculate">Novo Calculo</string>
+    <string name="age_value">16</string>
+    <string name="weight_value">63kg</string>
+    <string name="height_value">1.87cm</string>
+    <string name="name_error_message">O nome de usuário é obrigatório!</string>
 </resources>

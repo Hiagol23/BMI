@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,11 +35,19 @@ import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 
 @Composable
-fun ResultScreen(){
+fun ResultScreen(navegacao: NavHostController){
+
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+    val editor = userFile.edit()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -208,7 +218,10 @@ fun ResultScreen(){
                     }
                     HorizontalDivider()
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navegacao.navigate("dados")
+                            editor.apply()
+                                  },
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .width(300.dp)
@@ -231,5 +244,5 @@ fun ResultScreen(){
 @Preview(showSystemUi = true)
 @Composable
 private fun ResultPreview (){
-    ResultScreen()
+    //ResultScreen()
 }

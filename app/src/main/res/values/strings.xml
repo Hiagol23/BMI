@@ -4,7 +4,7 @@
     <string name="welcome">Welcome!</string>
     <string name="your_name">What\'s your name?</string>
     <string name="next">Next</string>
-    <string name="hi">Hi!</string>
+    <string name="hi">Hi</string>
     <string name="calculate">Calculate</string>
     <string name="age">Age</string>
     <string name="weight">Weight</string>
@@ -17,5 +17,6 @@
     <string name="new_calculate">New Calc</string>
     <string name="age_value">16</string>
     <string name="weight_value">63kg</string>
-    <string name="height_value">187cm</string>
+    <string name="height_value">1.87cm</string>
+    <string name="name_error_message">The user name is required!</string>
 </resources>

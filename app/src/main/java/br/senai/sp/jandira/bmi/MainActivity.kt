@@ -22,8 +22,8 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ){
                     composable(route = "home"){ HomeScreen(navegacao) }
-                    composable(route = "dados"){ UserDataScreen() }
-                    composable(route = "resultado"){ ResultScreen() }
+                    composable(route = "dados"){ UserDataScreen(navegacao) }
+                    composable(route = "resultado"){ ResultScreen(navegacao) }
                 }
                 }
             }

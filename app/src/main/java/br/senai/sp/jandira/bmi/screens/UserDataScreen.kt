@@ -1,6 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
-import android.service.autofill.UserData
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,9 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Balance
-import androidx.compose.material.icons.filled.Ballot
 import androidx.compose.material.icons.filled.Height
 import androidx.compose.material.icons.filled.Numbers
 import androidx.compose.material3.Button
@@ -27,24 +25,46 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun UserDataScreen(modifier: Modifier = Modifier) {
+fun UserDataScreen(navegacao: NavHostController) {
+
+    var ageState = remember {
+        mutableStateOf("")
+    }
+
+    var weigState = remember {
+        mutableStateOf("")
+    }
+
+    var heigState = remember {
+        mutableStateOf("")
+    }
+
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+    val userName = userFile.getString("user_name", "User name not found!")
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +84,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
     ) {
 
         Text(
-            text = stringResource(R.string.hi),
+            text = stringResource(R.string.hi) + ", $userName!",
             modifier = Modifier
                 .padding(top = 50.dp, start = 28.dp),
             color = Color.Green,
@@ -122,7 +142,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier.padding(top = 8.dp),
                             shape = RoundedCornerShape(30.dp)
                         ) {
-                            Text(text = "Male", color = Color.Green)
+                            Text(text = stringResource(R.string.male))
                         }
                     }
 
@@ -146,7 +166,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier.padding(top = 8.dp),
                             shape = RoundedCornerShape(30.dp)
                         ) {
-                            Text(text = "Female", color = Color.Green)
+                            Text(text = stringResource(R.string.female))
                         }
                     }
                 }
@@ -158,15 +178,13 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         OutlinedTextField(
-                            value = "",
-                            onValueChange = {},
+                            value = ageState.value,
+                            onValueChange = {
+                                ageState.value = it
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 16.dp),
-                            shape = RoundedCornerShape(17.dp),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Number,
-                            ),
                             label = {
                                 Text(text = stringResource(R.string.age))
                             },
@@ -175,18 +193,20 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                     imageVector = Icons.Default.Numbers,
                                     contentDescription = "Icone de Idade"
                                 )
-                            }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            )
                         )
                         OutlinedTextField(
-                            value = "",
-                            onValueChange = {},
+                            value = weigState.value,
+                            onValueChange = {
+                                weigState.value = it
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 16.dp),
-                            shape = RoundedCornerShape(17.dp),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Number,
-                            ),
                             label = {
                                 Text(text = stringResource(R.string.weight))
                             },
@@ -195,18 +215,20 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                     imageVector = Icons.Default.Balance,
                                     contentDescription = "Icone de Peso"
                                 )
-                            }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            )
                         )
                         OutlinedTextField(
-                            value = "",
-                            onValueChange = {},
+                            value = heigState.value,
+                            onValueChange = {
+                                heigState.value = it
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 16.dp),
-                            shape = RoundedCornerShape(17.dp),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Number,
-                            ),
                             label = {
                                 Text(text = stringResource(R.string.height))
                             },
@@ -215,11 +237,22 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                     imageVector = Icons.Default.Height,
                                     contentDescription = "Icone de Altura"
                                 )
-                            }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Decimal,
+                                imeAction = ImeAction.Done
+                            )
                         )
 
                         Button(
-                            onClick = {},
+                            onClick = {
+                                val editor = userFile.edit()
+                                editor.putInt("user_age", ageState.value.toInt())
+                                editor.putInt("user_weight", weigState.value.toInt())
+                                editor.putFloat("user_height", heigState.value.toFloat())
+                                editor.apply()
+                                navegacao.navigate("resultado")
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(90.dp)
@@ -247,5 +280,5 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
 @Preview(showSystemUi = true)
 @Composable
 private fun UserDataPreview() {
-    UserDataScreen()
+    //UserDataScreen()
 }

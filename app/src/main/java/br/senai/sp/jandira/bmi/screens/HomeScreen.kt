@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -40,10 +42,22 @@ import br.senai.sp.jandira.bmi.R
 
 @Composable
 fun HomeScreen(navegacao: NavHostController) {
-    
-    var nameState = remember { 
+
+    var nameState = remember {
         mutableStateOf("")
     }
+
+    var isErrorState = remember {
+        mutableStateOf(false)
+    }
+
+    // Abrir ou criar um arquivo SharedPrefereces
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+    // Colocar o arquivo em modo de edição
+    val editor = userFile.edit()
 
     Box(
         modifier = Modifier
@@ -139,15 +153,30 @@ fun HomeScreen(navegacao: NavHostController) {
                                     contentDescription = "",
                                     tint = Color(0xFF4034C7)
                                 )
+                            },
+                            isError = isErrorState.value,
+                            supportingText = {
+                                if (isErrorState.value) {
+                                    Text(
+                                        text = stringResource(R.string.name_error_message)
+                                    )
+                                }
                             }
                         )
                     }
                     Button(
                         onClick = {
-                            navegacao.navigate("dados")
+                            if (nameState.value.isEmpty()){
+                                isErrorState.value = true
+                            } else {
+                                editor.putString("user_name", nameState.value)
+                                editor.apply()
+                                navegacao.navigate("dados")
+                            }
+
                         },
                         shape = RoundedCornerShape(8.dp)
-                    ) {
+                    ){
                         Text(
                             text = stringResource(R.string.next),
                             fontSize = 22.sp,
