@@ -45,7 +45,7 @@ import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun UserDataScreen(navegacao: NavHostController) {
+fun UserDataScreen(navegacao: NavHostController?) {
 
     var ageState = remember {
         mutableStateOf("")
@@ -251,7 +251,7 @@ fun UserDataScreen(navegacao: NavHostController) {
                                 editor.putInt("user_weight", weigState.value.toInt())
                                 editor.putFloat("user_height", heigState.value.toFloat())
                                 editor.apply()
-                                navegacao.navigate("resultado")
+                                navegacao?.navigate("resultado")
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -280,5 +280,5 @@ fun UserDataScreen(navegacao: NavHostController) {
 @Preview(showSystemUi = true)
 @Composable
 private fun UserDataPreview() {
-    //UserDataScreen()
+    UserDataScreen(null)
 }

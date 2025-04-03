@@ -37,16 +37,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import java.util.Locale
 
 
 @Composable
-fun ResultScreen(navegacao: NavHostController){
+fun ResultScreen(navegacao: NavHostController?){
 
     val context = LocalContext.current
     val userFile = context
         .getSharedPreferences("userFile", Context.MODE_PRIVATE)
 
     val editor = userFile.edit()
+
+    val userAge = userFile.getInt("user_age", 0)
+    val userWeig = userFile.getInt("user_weight", 0)
+    val userHeig = userFile.getFloat("user_height", 0f)
 
     Box(
         modifier = Modifier
@@ -160,7 +165,7 @@ fun ResultScreen(navegacao: NavHostController){
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.age_value),
+                                    text = "$userAge",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -180,7 +185,7 @@ fun ResultScreen(navegacao: NavHostController){
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.weight_value),
+                                    text = "$userWeig Kg",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -200,7 +205,7 @@ fun ResultScreen(navegacao: NavHostController){
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.height_value),
+                                    text = String.format(Locale.getDefault(), "%.2f", userHeig),
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -219,7 +224,7 @@ fun ResultScreen(navegacao: NavHostController){
                     HorizontalDivider()
                     Button(
                         onClick = {
-                            navegacao.navigate("dados")
+                            navegacao?.navigate("dados")
                             editor.apply()
                                   },
                         modifier = Modifier
@@ -244,5 +249,5 @@ fun ResultScreen(navegacao: NavHostController){
 @Preview(showSystemUi = true)
 @Composable
 private fun ResultPreview (){
-    //ResultScreen()
+    ResultScreen(null)
 }

@@ -41,7 +41,7 @@ import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun HomeScreen(navegacao: NavHostController) {
+fun HomeScreen(navegacao: NavHostController?) {
 
     var nameState = remember {
         mutableStateOf("")
@@ -171,7 +171,7 @@ fun HomeScreen(navegacao: NavHostController) {
                             } else {
                                 editor.putString("user_name", nameState.value)
                                 editor.apply()
-                                navegacao.navigate("dados")
+                                navegacao?.navigate("dados")
                             }
 
                         },
@@ -194,5 +194,5 @@ fun HomeScreen(navegacao: NavHostController) {
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenPreview() {
- //   HomeScreen()
+     HomeScreen(null)
 }
