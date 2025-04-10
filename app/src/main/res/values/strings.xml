@@ -19,10 +19,11 @@
     <string name="weight_value">63kg</string>
     <string name="height_value">1.87cm</string>
     <string name="name_error_message">The user name is required!</string>
-    <string name="obsesity_1">You have Class I Obesity!</string>
-    <string name="obsesity_2">You have Class II Obesity!</string>
-    <string name="obsesity_3">You have Class III Obesity!</string>
+    <string name="obesity_1">You have Class I Obesity!</string>
+    <string name="obesity_2">You have Class II Obesity!</string>
+    <string name="obesity_3">You have Class III Obesity!</string>
     <string name="normal">You have normal body weight!</string>
     <string name="under_weight">You have below your ideal weight!</string>
-    <string name="normal">You are slightly overweight!</string>
+    <string name="over_weight">You are slightly overweight!</string>
+    <string name="underweight">Underweight</string>
 </resources>

@@ -19,4 +19,10 @@
     <string name="weight_value">63kg</string>
     <string name="height_value">1.87cm</string>
     <string name="name_error_message">O nome de usuário é obrigatório!</string>
+    <string name="obesity_1">Voce está com obesidade Classe I!</string>
+    <string name="obesity_2">Voce está com obesidade Classe II!</string>
+    <string name="obesity_3">Voce está com obesidade Classe III!</string>
+    <string name="normal">Parabéns, seu peso está normal!</string>
+    <string name="under_weight">Ateçao, voce está abaixo do seu peso ideal!</string>
+    <string name="over_weight">Atençao, voce está um pouco acima do peso ideal!</string>
 </resources>
